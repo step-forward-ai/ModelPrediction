@@ -1,20 +1,13 @@
 const mongoose = require("mongoose")
 
-mongoose.connect('mongodb://127.0.0.1:27017/task-manager-api', {
+var env = process.env.NODE_ENV || 'dev';
+var config = require('./config')[env];
+
+const connectionURL = "mongodb://" + config.database.host + ":" + config.database.port + "/" + config.database.db
+
+console.log(connectionURL)
+
+mongoose.connect(connectionURL, {
     useNewUrlParser: true,
     useCreateIndex: true
 })
-
-// const me = new User({
-//     name: '    george   ',
-//     email: 'Mke@yahoo.com   ',
-//     password: "                                  twang@passrword"
-// })
-
-// me.save().then((result)=>{
-//     console.log(result)
-//     mongoose.disconnect()
-// }).catch((error)=>{
-//     console.log(error)
-//     mongoose.disconnect()
-// })

@@ -1,12 +1,13 @@
 const express = require('express')
 require('./db/mongoose')
 const User = require('./models/user')
-
+var env = process.env.NODE_ENV || 'dev';
+var config = require('./db/config')[env];
 const Member = require('./models/member')
 
 const app = express()
 
-const port = process.env.PORT || 3000
+const port = config.server.port
 
 app.use(express.json())
 
@@ -66,5 +67,5 @@ app.get('/users/:id', (req, res)=>{
 })
 
 app.listen(port, ()=>{
-    console.log('App is started')
+    console.log('App is started, listening at port:' + port)
 })
